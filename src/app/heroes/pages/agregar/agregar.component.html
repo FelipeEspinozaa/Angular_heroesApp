@@ -1,12 +1,12 @@
 <h1>Nuevo Héroe <small> {{ heroe.superhero }} </small></h1>
 
-<div    fxLayout="row" 
+<div    fxLayout="row"
         fxLayoutGap="40px"
         fxLayout.xs="column">
 
     <div fxFlex="50" fxLayout="column">
 
-        <div    fxLayout="row" 
+        <div    fxLayout="row"
                 fxLayout.xs="column"
                 fxLayoutGap="20px">
             <mat-form-field fxFlex="100" fxLayout.xs="column">
@@ -16,7 +16,7 @@
                         [(ngModel)]="heroe.superhero"
                         required="">
             </mat-form-field>
-    
+
             <mat-form-field fxFlex="100">
                 <mat-label>Alter Ego</mat-label>
                 <input  matInput
@@ -63,17 +63,31 @@
 
         <br>
 
-        <button mat-raised-button 
-                color="primary"
-                (click)="guardar()">
-            <mat-icon>edit</mat-icon>
-            Guardar
-        </button>
+        <div fxLayout>
+
+          <button mat-raised-button
+                  color="primary"
+                  (click)="guardar()">
+              <mat-icon>edit</mat-icon>
+              Guardar
+          </button>
+
+          <span class="spacer"></span>
+
+          <button *ngIf="heroe.id"
+                  (click)="borrarHeroe()"
+                  mat-raised-button
+                  color="warn">
+            <mat-icon>remove</mat-icon>
+            Borrar
+          </button>
+
+        </div>
 
     </div>
 
     <div fxFlex="50">
-        <img [src]="heroe | imagen">    
+        <img [src]="heroe | imagen">
     </div>
 
 </div>

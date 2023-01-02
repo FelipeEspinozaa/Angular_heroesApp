@@ -8,7 +8,12 @@ import { HeroesService } from '../../services/heroes.service';
 @Component({
   selector: 'app-agregar',
   templateUrl: './agregar.component.html',
-  styles: [
+  styles: [`
+    img {
+      width: 100%;
+      border-radius:5px;
+    }
+  `
   ]
 })
 export class AgregarComponent implements OnInit {
@@ -33,13 +38,17 @@ export class AgregarComponent implements OnInit {
     alt_img: ""
   }
 
-  constructor( 
+  constructor(
     private heroesService: HeroesService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+
+    if( !this.router.url.includes("editar") ) {
+      return; //para que al momento de ingresar, no lance el error de peticion
+    }
 
     this.activateRoute.params
       .pipe(
@@ -66,6 +75,15 @@ export class AgregarComponent implements OnInit {
         })
     }
 
+  }
+
+  borrarHeroe( ) {
+    this.heroesService.borrarHeroe( this.heroe.id! )
+      .subscribe( resp => {
+
+        this.router.navigate(["/heroes"]);
+
+      })
   }
 
 }
